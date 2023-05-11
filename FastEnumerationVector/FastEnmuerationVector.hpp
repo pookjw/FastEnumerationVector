@@ -6,13 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <memory>
 #import <vector>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FastEnmuerationVector : NSObject <NSFastEnumeration>
-@property (readonly, assign) std::shared_ptr<std::vector<id>> objects;
+@property (readonly, assign, nonatomic) std::vector<id> *objects;
 @end
 
 NS_ASSUME_NONNULL_END

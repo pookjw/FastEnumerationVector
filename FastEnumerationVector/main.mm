@@ -18,11 +18,15 @@ int main(int argc, const char * argv[]) {
         
         std::for_each(range.begin(), range.end(), [&range, &vector](NSUInteger &element) {
             NSUInteger index = &element - range.data();
-            vector.objects.get()->push_back(@(index));
+            vector.objects->push_back(@(index));
         });
         
         for (id object in vector) {
             NSLog(@"%@", object);
+            
+//            if ([object isEqualToNumber:@0]) {
+//                vector.objects->pop_back();
+//            }
         }
     }
     
