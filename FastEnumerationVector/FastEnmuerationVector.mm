@@ -19,7 +19,7 @@
 
 - (NSUInteger)countByEnumeratingWithState:(nonnull NSFastEnumerationState *)state objects:(__unsafe_unretained id  _Nullable * _Nonnull)buffer count:(NSUInteger)len {
     const std::vector<id> *objects = _objects.get();
-    const std::uint64_t size = objects->size();
+    const unsigned long size = objects->size();
     
     if (state->state == 0) {
         // initial
@@ -31,21 +31,20 @@
     
     const unsigned long remaining = state->extra[0];
     
-    if (len <= remaining) {
-        for (NSUInteger i = 0; i < len; i++) {
+    for (NSUInteger i = 0; i < len; i++) {
+        if (remaining <= i) {
+            buffer[i] = nullptr;
+        } else {
             buffer[i] = objects->at(size - remaining + i);
         }
-        
+    }
+    
+    if (len <= remaining) {
         state->extra[0] -= len;
         return len;
     } else {
         // final
         state->extra[0] = 0;
-        
-        for (NSUInteger i = 0; i < remaining; i++) {
-            buffer[i] = objects->at(size - remaining + i);
-        }
-        
         return remaining;
     }
 }
