@@ -48,7 +48,7 @@
         }
         
         state->mutationsPtr = mutated.get();
-        return 1;
+        return NSNotFound;
     }
     
     const unsigned long remaining = state->extra[0];
